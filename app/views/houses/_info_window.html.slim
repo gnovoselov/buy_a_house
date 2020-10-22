@@ -1,0 +1,8 @@
+.card.marker
+  = image_tag house.photo.variant(resize_to_limit: [250, 250]), class: 'card-img-top'
+  .card-body
+    p.card-text = house.address
+    = link_to 'View', house, class: 'btn btn-primary', role: 'button'
+    = link_to "#{ENV['APPLE_MAPS_URL']}?address=#{house.address}", class: 'btn btn-default float-right', role: 'button' do
+      span.glyphicon.glyphicon-map-marker
+      | Directions

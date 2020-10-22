@@ -1,0 +1,31 @@
+.page-header
+  = link_to houses_path, class: 'btn btn-secondary' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to @house, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' do 
+    span.glyphicon.glyphicon-trash
+    |  Delete
+  = link_to edit_house_path(@house), class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-pencil
+    |  Edit 
+  = link_to "#{ENV['ZILLOW_URL']}/#{@house.zillow_id}/", target: :_blank, class: 'btn btn-default' do 
+    span.glyphicon.glyphicon-new-window
+    |  Zillow
+  h1
+    = @house.address
+
+.house_properties_list.media.row
+  .image.col-sm-12.col-md-6
+    = image_tag @house.photo.variant(resize_to_limit: [700, 700]), class: 'mr-3', alt: @house.address
+  .media-body.col-sm-12.col-md-6
+    h5.mt-0
+      | Properties
+    .house_properties
+      - @house.house_properties.joins(:property).order('properties.value' => :desc, 'properties.name' => :asc).each do |house_property|
+        .property_checkbox.form-check
+          = check_box_tag :enabled, 1, house_property.enabled, 
+                          class: 'form-check-input',
+                          id: "enabled_#{house_property.id}", 
+                          data: { remote: true, url: house_property_url(house_property), params: "id=#{house_property.id}", method: :put }
+          label.form-check-label for="enabled_#{house_property.id}"
+            = house_property.property.name 

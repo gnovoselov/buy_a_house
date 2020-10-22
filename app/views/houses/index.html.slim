@@ -1,0 +1,15 @@
+.page-header
+  = link_to new_house_path, class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-plus
+    |  New House
+  h1
+    | Listing houses
+
+.container
+  .row
+    - @houses.each do | house|
+      .card.house.col-sm-12.col-md-4.col-lg-3.col-xl-2
+        = image_tag house.photo.variant(combine_options: {resize: '500x500^', extent: '500x500', gravity: 'Center'}), class: 'card-img-top', alt: house.address
+        .card-body
+          p.card-text = house.address
+          = link_to 'View', house, class: 'btn btn-primary'

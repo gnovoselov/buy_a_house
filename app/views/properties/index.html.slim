@@ -1,0 +1,31 @@
+.page-header
+  = link_to new_property_path, class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-plus
+    |  New Property
+  h1
+    | Listing properties
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+          | Name
+        th
+          | Value
+        th
+        th
+        th
+    tbody
+      - @properties.each do | property |
+        tr
+          td
+            = property.name
+          td
+            = property.value
+          td
+            = link_to 'Show', property
+          td
+            = link_to 'Edit', edit_property_path(property) 
+          td
+            = link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } 
