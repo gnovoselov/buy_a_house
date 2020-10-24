@@ -1,6 +1,8 @@
 .card.marker
-  = link_to house do
+  = link_to house, class: :house_img_link do
     = image_tag house.photo.variant(combine_options: { resize: '220x180^', extent: '200x180', gravity: 'Center' }), class: 'card-img-top'
+    - if house.rank > 0
+      span.rank = house.rank
   .card-body
     p.card-text = house.address
     span.price = number_to_currency(house.price, precision: 0)

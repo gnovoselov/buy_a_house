@@ -31,6 +31,24 @@ h1.house_price {
   color: #444444;
 }
 
+.house_img_link, .house_properties_list .image {
+  display: block;
+  position: relative;
+
+  span.rank {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #777777;
+    opacity: 0.8;
+    color: #ffeeba;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 2em;
+  }
+}
+
 .card {
   &.marker {
     border: 0;
