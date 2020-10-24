@@ -1,8 +1,9 @@
 .card.marker
-  = image_tag house.photo.variant(resize_to_limit: [250, 250]), class: 'card-img-top'
+  = link_to house do
+    = image_tag house.photo.variant(combine_options: { resize: '220x180^', extent: '200x180', gravity: 'Center' }), class: 'card-img-top'
   .card-body
     p.card-text = house.address
-    = link_to 'View', house, class: 'btn btn-primary', role: 'button'
-    = link_to "#{ENV['APPLE_MAPS_URL']}?address=#{house.address}", class: 'btn btn-default float-right', role: 'button' do
+    span.price = number_to_currency(house.price, precision: 0)
+    = link_to "#{ENV['APPLE_MAPS_URL']}?address=#{house.address}", class: 'btn btn-outline-dark float-right', role: 'button' do
       span.glyphicon.glyphicon-map-marker
       | Directions

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_013240) do
+ActiveRecord::Schema.define(version: 2020_10_24_141901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,9 @@ ActiveRecord::Schema.define(version: 2020_10_22_013240) do
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
     t.integer "price"
+    t.boolean "favorite", default: false
+    t.boolean "hidden", default: false
+    t.text "comment"
     t.index ["zillow_id"], name: "index_houses_on_zillow_id", unique: true
   end
 

@@ -11,10 +11,12 @@
         - @house.errors.full_messages.each do |msg|
           li= msg
 
-  .form-group
-    - if @house.photo.attached?
-      .photo
-        = image_tag @house.photo.variant(resize_to_limit: [250, 250])
+  - if @house.photo.attached?
+    .form-group
+      .col-sm-2
+      .col-sm-10
+        .photo
+          = image_tag @house.photo.variant(resize_to_limit: [250, 250])
   .form-group
     = f.label :photo, class: "col-sm-2 control-label"
     .col-sm-10
@@ -27,6 +29,10 @@
     = f.label :zillow_id, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :zillow_id, class: "form-control"
+  .form-group
+    = f.label :price, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :price, class: "form-control"
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"

@@ -11,11 +11,11 @@ script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps4rails/2.1.2/gmaps4rails
 
 script type="text/javascript"
   |
-    (function() {
+    document.addEventListener("DOMContentLoaded", function(event) {
       handler = Gmaps.build('Google');
       handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
         markers = handler.addMarkers(#{raw @markers.to_json});
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
       });
-    }).call(this);
+    });

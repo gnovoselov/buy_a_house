@@ -11,14 +11,49 @@
   = link_to "#{ENV['ZILLOW_URL']}/#{@house.zillow_id}/", target: :_blank, class: 'btn btn-default' do 
     span.glyphicon.glyphicon-new-window
     |  Zillow
-  h1
-    = @house.address
+  = link_to "#{ENV['APPLE_MAPS_URL']}?address=#{@house.address}", class: 'btn btn-default float-right', role: 'button' do
+    span.glyphicon.glyphicon-map-marker
+    | Directions
+    
+  h1.house_price
+    = number_to_currency(@house.price, precision: 0)
 
 .house_properties_list.media.row
-  .image.col-sm-12.col-md-6
-    = image_tag @house.photo.variant(resize_to_limit: [700, 700]), class: 'mr-3', alt: @house.address
+  .col-sm-12.col-md-6
+    .image
+      = image_tag @house.photo.variant(resize_to_limit: [700, 700]), class: 'mr-3', alt: @house.address
+    .house_address
+      p = @house.address
+    .house_attributes
+      .row
+        .col-sm-6.col-md-3
+          .form-group
+            .attribute_checkbox.form-check
+              = check_box_tag :favorite, 1, @house.favorite, 
+                              class: 'form-check-input',
+                              id: "house_favorite", 
+                              data: { remote: true, url: toggle_favorite_house_url(@house), params: "id=#{@house.id}", method: :put }
+              label.form-check-label for="house_favorite"
+                | Favorite
+        .col-sm-6.col-md-3
+          .form-group
+            .attribute_checkbox.form-check
+              = check_box_tag :hidden, 1, @house.hidden, 
+                              class: 'form-check-input',
+                              id: "house_hidden", 
+                              data: { remote: true, url: toggle_hidden_house_url(@house), params: "id=#{@house.id}", method: :put }
+              label.form-check-label for="house_hidden"
+                | Hidden
+        .col-sm-12.col-md-6 
+          = form_for(@house, html: { class: "form-horizontal", role: "form" }) do |f|
+            .form-group.comments_area
+              = f.text_area :comment, class: "form-control"
+            .form-group.comments_area
+              = f.submit value: "Save comments", class: "btn btn-primary float-right"
+
+
   .media-body.col-sm-12.col-md-6
-    h5.mt-0
+    h3.mt-0
       | Properties
     .house_properties
       - @house.house_properties.joins(:property).order('properties.value' => :desc, 'properties.name' => :asc).each do |house_property|
