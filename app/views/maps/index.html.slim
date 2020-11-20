@@ -6,12 +6,11 @@ script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps4rails/2.1.2/gmaps4rails
 
 .container
   .row
-    = @info_wondows
     #map
 
 script type="text/javascript"
   |
-    document.addEventListener("DOMContentLoaded", function(event) {
+    window.addEventListener("load", function() {
       handler = Gmaps.build('Google');
       handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
         markers = handler.addMarkers(#{raw @markers.to_json});
@@ -19,3 +18,8 @@ script type="text/javascript"
         handler.fitMapToBounds();
       });
     });
+
+//Debug markers
+/.markers
+/  - @markers.each do |marker|
+/    p = marker.to_s
